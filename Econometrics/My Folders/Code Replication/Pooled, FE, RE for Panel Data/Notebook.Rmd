@@ -94,6 +94,7 @@ summary(re_model)
 phtest(fe_firm, re_model)
 ```
 
+
 ## Part 3: How to Interpret Each Component
 
 ### Residuals
@@ -177,6 +178,8 @@ F-statistics test whether all your explanatory variables (except the intercept) 
 
 So the larger the F-statistic is, the better the effects are at explaining a measurement (a value of 184.5 means 'value' and 'capital' strongly explain 'invest' overall)
 
+
+
 ## Essentially...
 
 R²: “How much of the puzzle is solved?” Higher = more explained, but check what variation (total vs. within).
@@ -184,3 +187,13 @@ R²: “How much of the puzzle is solved?” Higher = more explained, but check 
 Adjusted R²: “Is it worth the extra pieces?” Stays high if variables pull their weight.
 
 F-statistic: “Do these pieces matter at all?” Big F = yes, with p-value confirming it’s not random noise.
+
+Pooled OLS: “Everything’s lumped together — big picture, but blurry details.” Higher R² grabs all variation, but misses firm or year quirks.
+
+Fixed Effects (FE): “Zooming into each firm—sharper focus, less noise.” Lower R² but truer effects within units, cutting out firm differences.
+
+Two-way Fixed Effects (Two-way FE):   “Double filter—firm and year noise gone, crystal clear.” Tightest fit, controls everything, best for isolating effects.
+
+Random Effects (RE): “Middle ground—mixes the big picture with firm quirks.” High R² and efficient, but only if firm traits don’t skew the variables.
+
+Coefficients: “How much each piece moves the puzzle—depends on the lens.” Size and story shift by model, showing average vs. within effects.
