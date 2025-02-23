@@ -1,5 +1,5 @@
 # ============================================================================= #
-# Preparation for Econometrics Assessment: Panel Data Methods
+# Part 1: Setting up Packages/Libraries for Panel Data Methods
 # ============================================================================= #
 
 # Set seed for reproducibility
@@ -12,8 +12,13 @@ library("AER")        # For Grunfeld dataset and econometric tools
 library("plm")        # For panel data regression
 library("tidyverse")  # For data manipulation
 
+
+
+
+
+
 # ============================================================================= #
-# Part 1: Grunfeld Investment Data - Panel Data Basics
+# Part 2: Grunfeld Investment Data - Panel Data Basics
 # ============================================================================= #
 
 # Load and inspect the Grunfeld dataset (balanced panel: firms over years)
@@ -52,8 +57,11 @@ phtest(fe_firm, re_model)
 # - RE assumes unobserved effects are uncorrelated with regressors
 # - Hausman test helps choose between FE and RE
 
+
+
+
 # ============================================================================= #
-# Part 2: Simulated CAPM - Panel Regression with Interaction Terms
+# Part 3: Simulated CAPM - Panel Regression with Interaction Terms
 # ============================================================================= #
 
 # Simulate simple CAPM-like data (since we can’t fetch Yahoo Finance data here)
@@ -83,7 +91,7 @@ summary(capm_interaction)
 # - Compare R-squared and coefficients to assess fit
 
 # ============================================================================= #
-# Part 3: Policy Analysis - Guns and Violent Crime (Simplified)
+# Part 4: Policy Analysis - Guns and Violent Crime (Simplified)
 # ============================================================================= #
 
 # Load Guns dataset
