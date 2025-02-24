@@ -66,7 +66,7 @@ summary(fe_firm_manual)  # Coefficients for value and capital should match fe_fi
 
 3.  Two-way FE - Individual (firm) and time (year) effects
 
-Used for controlling both unit-specific and time-specific variales/effects, like countries AND years. It adds dummy variables for both units. Useful when there are time-specific shocks (e.g., economic recessions, policy changes) affecting all units, in addition to unit-specific effects.
+Used for controlling both unit-specific and time-specific variables/effects, like countries AND years. It adds dummy variables for both units. Useful when there are time-specific shocks (e.g., economic recessions, policy changes) affecting all units, in addition to unit-specific effects.
 
 ```{r}
 fe_twoways <- plm(invest ~ value + capital, data = Grunfeld, 
@@ -93,7 +93,6 @@ summary(re_model)
 ```{r}
 phtest(fe_firm, re_model)
 ```
-
 
 ## Part 3: How to Interpret Each Component
 
@@ -135,20 +134,17 @@ Weighted average of between- and within-firm effects.
 
 Takeaway: FE coefficients are larger for value, smaller for capital---firm-specific effects adjust the relationships.
 
-
 ### Significance Values (P-Values)
 
-Across Models: All p-values for value and capital are tiny (e.g., < 0.001 with ***), indicating strong evidence these variables affect invest.
+Across Models: All p-values for value and capital are tiny (e.g., \< 0.001 with \*\*\*), indicating strong evidence these variables affect invest.
 
 Intercept: Significant in Pooled OLS (p = 0.015), not in RE (p = 0.068)—FE omits it (focuses on within variation).
 
 Takeaway: Consistent significance suggests robust relationships, but model choice affects intercept relevance.
 
-
 ### Residual Standard Error (RSE)
 
 The lower the RSE the more variation is captured (hence the better). Usually FE models possess lower values compared to Pooled OLS and RE.
-
 
 ### R-Squared (R²)
 
@@ -160,8 +156,7 @@ It’s a number between 0 and 1:
 
 1 = the model explains all the variation (perfect predictions).
 
-So if the Pooled OLS shows a Multiple R-squared value of 0.652, 65.2% of the variation for 'invest' is explained by value and capital.
-### Adjusted R-Squared
+So if the Pooled OLS shows a Multiple R-squared value of 0.652, 65.2% of the variation for 'invest' is explained by value and capital. \### Adjusted R-Squared
 
 Adjusted R² is like R² but penalizes you for adding unnecessary variables that don’t improve the model much.
 
@@ -171,29 +166,42 @@ Adjusted R² only increases if the new variable meaningfully reduces residuals r
 
 In FE/Two-way FE, Adjusted R² seems low because of many “hidden” dummy variables, but it’s fairer for comparing models with different numbers of predictors.
 
-Helps you pick the “best” model. If Adjusted R² drops a lot (e.g., adding useless controls), the extra complexity isn’t worth it. In your code, a Two-way FE’s slight rise is sufficient enough to suggest that year effects add value.
-### F-Statistic
+Helps you pick the “best” model. If Adjusted R² drops a lot (e.g., adding useless controls), the extra complexity isn’t worth it. In your code, a Two-way FE’s slight rise is sufficient enough to suggest that year effects add value. \### F-Statistic
 
 F-statistics test whether all your explanatory variables (except the intercept) together explain the dependent variable better than a model with no predictors (just the mean).
 
 So the larger the F-statistic is, the better the effects are at explaining a measurement (a value of 184.5 means 'value' and 'capital' strongly explain 'invest' overall)
 
-
-
 ## Essentially...
 
-R²: “How much of the puzzle is solved?” Higher = more explained, but check what variation (total vs. within).
+R²: **“How much of the puzzle is solved?”**
 
-Adjusted R²: “Is it worth the extra pieces?” Stays high if variables pull their weight.
+-   Higher = more explained, but check what variation (total vs. within).
 
-F-statistic: “Do these pieces matter at all?” Big F = yes, with p-value confirming it’s not random noise.
+Adjusted R²: **“Is it worth the extra pieces?”**
 
-Pooled OLS: “Everything’s lumped together — big picture, but blurry details.” Higher R² grabs all variation, but misses firm or year quirks.
+-   Stays high if variables pull their weight.
 
-Fixed Effects (FE): “Zooming into each firm—sharper focus, less noise.” Lower R² but truer effects within units, cutting out firm differences.
+F-statistic: **“Do these pieces matter at all?”**
 
-Two-way Fixed Effects (Two-way FE):   “Double filter—firm and year noise gone, crystal clear.” Tightest fit, controls everything, best for isolating effects.
+-   Big F = yes, with p-value confirming it’s not random noise.
 
-Random Effects (RE): “Middle ground—mixes the big picture with firm quirks.” High R² and efficient, but only if firm traits don’t skew the variables.
+Pooled OLS: **“Everything’s lumped together — big picture, but blurry details.”**
 
-Coefficients: “How much each piece moves the puzzle—depends on the lens.” Size and story shift by model, showing average vs. within effects.
+-   Higher R² grabs a higher quantity of variation, but misses firm or year quirks.
+
+Fixed Effects (FE): **“Zooming into each firm—sharper focus, less noise.”**
+
+-   Lower R² but truer effects within units, cutting out firm differences.
+
+Two-way Fixed Effects (Two-way FE): **“Double filter—firm and year noise gone, crystal clear.”**
+
+-   Tightest fit, controls everything, best for isolating effects.
+
+Random Effects (RE): **“Middle ground—mixes the big picture with firm quirks.”**
+
+-   High R² and efficient, but only if firm traits don’t skew the variables.
+
+Coefficients: **“How much each piece moves the puzzle—depends on the lens.”**
+
+-   Size and story shift by model, showing average vs. within effects.

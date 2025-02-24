@@ -1752,373 +1752,132 @@ display: none;
 
 
 <!-- rnb-text-begin -->
-<div id="part-1-setting-up-data" class="section level2">
-<h2>Part 1: Setting up Data</h2>
-<p>Set a random seed for reproducibility.</p>
+<p>Install required packages</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dWMyVjBMbk5sWldRb01USXpLVnh1WEc1cGJuTjBZV3hzTG5CaFkydGhaMlZ6S0dNb1hGeEJSVkpjWEN3Z1hGeHdiRzFjWEN3Z1hGeDBhV1I1ZG1WeWMyVmNYQ2twWEc1Z1lHQmNibUJnWUNKOSAtLT5cblxuYGBgclxuYGBgclxuc2V0LnNlZWQoMTIzKVxuXG5pbnN0YWxsLnBhY2thZ2VzKGMoXFxBRVJcXCwgXFxwbG1cXCwgXFx0aWR5dmVyc2VcXCkpXG5gYGBcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuc2V0LnNlZWQoMTIzKVxuXG5pbnN0YWxsLnBhY2thZ2VzKGMoXFxBRVJcXCwgXFxwbG1cXCwgXFx0aWR5dmVyc2VcXCkpXG5gYGBcbmBgYCJ9 -->
-<pre class="r"><code>```r
-set.seed(123)
-
-install.packages(c(\AER\, \plm\, \tidyverse\))</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-Install required packages for Panel Data Analysis.
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dWFXNXpkR0ZzYkM1d1lXTnJZV2RsY3loaktGeGNRVVZTWEZ3c0lGeGNjR3h0WEZ3c0lGeGNkR2xrZVhabGNuTmxYRndwS1Z4dVlHQmdYRzVnWUdBaWZRPT0gLS0+XG5cbmBgYHJcbmBgYHJcbmluc3RhbGwucGFja2FnZXMoYyhcXEFFUlxcLCBcXHBsbVxcLCBcXHRpZHl2ZXJzZVxcKSlcbmBgYFxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhjKFxcQUVSXFwsIFxccGxtXFwsIFxcdGlkeXZlcnNlXFwpKVxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-install.packages(c(\AER\, \plm\, \tidyverse\))</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-Load the required packages you&#39;ve previously installed.
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dWJHbGljbUZ5ZVNoY1hFRkZVbHhjS1NBZ0lDQWdJQ0FnSXlCR2IzSWdSM0oxYm1abGJHUWdaR0YwWVhObGRDQmhibVFnWldOdmJtOXRaWFJ5YVdNZ2RHOXZiSE5jYm14cFluSmhjbmtvWEZ4d2JHMWNYQ2tnSUNBZ0lDQWdJQ01nUm05eUlIQmhibVZzSUdSaGRHRWdjbVZuY21WemMybHZibHh1YkdsaWNtRnllU2hjWEhScFpIbDJaWEp6WlZ4Y0tTQWdJeUJHYjNJZ1pHRjBZU0J0WVc1cGNIVnNZWFJwYjI1Y2JtQmdZRnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbmBgYHJcbmxpYnJhcnkoXFxBRVJcXCkgICAgICAgICMgRm9yIEdydW5mZWxkIGRhdGFzZXQgYW5kIGVjb25vbWV0cmljIHRvb2xzXG5saWJyYXJ5KFxccGxtXFwpICAgICAgICAjIEZvciBwYW5lbCBkYXRhIHJlZ3Jlc3Npb25cbmxpYnJhcnkoXFx0aWR5dmVyc2VcXCkgICMgRm9yIGRhdGEgbWFuaXB1bGF0aW9uXG5gYGBcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGlicmFyeShcXEFFUlxcKSAgICAgICAgIyBGb3IgR3J1bmZlbGQgZGF0YXNldCBhbmQgZWNvbm9tZXRyaWMgdG9vbHNcbmxpYnJhcnkoXFxwbG1cXCkgICAgICAgICMgRm9yIHBhbmVsIGRhdGEgcmVncmVzc2lvblxubGlicmFyeShcXHRpZHl2ZXJzZVxcKSAgIyBGb3IgZGF0YSBtYW5pcHVsYXRpb25cbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
-library(\AER\)        # For Grunfeld dataset and econometric tools
-library(\plm\)        # For panel data regression
-library(\tidyverse\)  # For data manipulation</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-## Part 2: Grunfeld Investment Data - Panel Data Basics
-
-Load and inspect the Grunfeld dataset (balanced panel: firms over years)
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dVpHRjBZU2hjWEVkeWRXNW1aV3hrWEZ3c0lIQmhZMnRoWjJVZ1BTQmNYRUZGVWx4Y0tWeHVhR1ZoWkNoSGNuVnVabVZzWkNrZ0lDTWdRMmhsWTJzZ2MzUnlkV04wZFhKbE9pQm1hWEp0TENCNVpXRnlMQ0JwYm5abGMzUXNJSFpoYkhWbExDQmpZWEJwZEdGc1hHNWdZR0JjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbmBgYHJcbmRhdGEoXFxHcnVuZmVsZFxcLCBwYWNrYWdlID0gXFxBRVJcXClcbmhlYWQoR3J1bmZlbGQpICAjIENoZWNrIHN0cnVjdHVyZTogZmlybSwgeWVhciwgaW52ZXN0LCB2YWx1ZSwgY2FwaXRhbFxuYGBgXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGF0YShcXEdydW5mZWxkXFwsIHBhY2thZ2UgPSBcXEFFUlxcKVxuaGVhZChHcnVuZmVsZCkgICMgQ2hlY2sgc3RydWN0dXJlOiBmaXJtLCB5ZWFyLCBpbnZlc3QsIHZhbHVlLCBjYXBpdGFsXG5gYGBcbmBgYCJ9 --&gt;
-
-```r
-```r
-data(\Grunfeld\, package = \AER\)
-head(Grunfeld)  # Check structure: firm, year, invest, value, capital</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-1.  Pooled OLS (treating data as cross-sectional)
-
-Use Pooled OLS mainly for simple cross-sectional datasets, which is when you don&#39;t want to take time-specific or unit-specific effects into consideration, or you just want a baseline for comparison.
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dVhHNXdiMjlzWldSZmIyeHpJRHd0SUd4dEtHbHVkbVZ6ZENCK0lIWmhiSFZsSUNzZ1kyRndhWFJoYkN3Z1pHRjBZU0E5SUVkeWRXNW1aV3hrS1Z4dWMzVnRiV0Z5ZVNod2IyOXNaV1JmYjJ4ektWeHVZR0JnWEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5gYGByXG5cbnBvb2xlZF9vbHMgPC0gbG0oaW52ZXN0IH4gdmFsdWUgKyBjYXBpdGFsLCBkYXRhID0gR3J1bmZlbGQpXG5zdW1tYXJ5KHBvb2xlZF9vbHMpXG5gYGBcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuXG5wb29sZWRfb2xzIDwtIGxtKGludmVzdCB+IHZhbHVlICsgY2FwaXRhbCwgZGF0YSA9IEdydW5mZWxkKVxuc3VtbWFyeShwb29sZWRfb2xzKVxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-
-pooled_ols &lt;- lm(invest ~ value + capital, data = Grunfeld)
-summary(pooled_ols)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-2.  Fixed Effects (FE) - Individual (firm) effects
-
-It adds a dummy variable for each unit (e.g., firm/country) to measure unobserved heterogeneity. Use for datasets that have differing units that don&#39;t change over time (e.g., a country&#39;s culture)
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVYRzVtWlY5bWFYSnRJRHd0SUhCc2JTaHBiblpsYzNRZ2ZpQjJZV3gxWlNBcklHTmhjR2wwWVd3c0lHUmhkR0VnUFNCSGNuVnVabVZzWkN3Z1hHNGdJQ0FnSUNBZ0lDQWdJQ0FnSUNCcGJtUmxlQ0E5SUdNb1hDSm1hWEp0WENJc0lGd2llV1ZoY2x3aUtTd2diVzlrWld3Z1BTQmNJbmRwZEdocGJsd2lLVnh1YzNWdGJXRnllU2htWlY5bWFYSnRLVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcblxuZmVfZmlybSA8LSBwbG0oaW52ZXN0IH4gdmFsdWUgKyBjYXBpdGFsLCBkYXRhID0gR3J1bmZlbGQsIFxuICAgICAgICAgICAgICAgaW5kZXggPSBjKFwiZmlybVwiLCBcInllYXJcIiksIG1vZGVsID0gXCJ3aXRoaW5cIilcbnN1bW1hcnkoZmVfZmlybSlcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5mZV9maXJtIDwtIHBsbShpbnZlc3QgfiB2YWx1ZSArIGNhcGl0YWwsIGRhdGEgPSBHcnVuZmVsZCwgXG4gICAgICAgICAgICAgICBpbmRleCA9IGMoXCJmaXJtXCIsIFwieWVhclwiKSwgbW9kZWwgPSBcIndpdGhpblwiKVxuc3VtbWFyeShmZV9maXJtKVxuYGBgIn0= --&gt;
-
-```r
-
-fe_firm &lt;- plm(invest ~ value + capital, data = Grunfeld, 
-               index = c(&quot;firm&quot;, &quot;year&quot;), model = &quot;within&quot;)
-summary(fe_firm)</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVhVzV6ZEdGc2JDNXdZV05yWVdkbGN5aGpLRndpZEdsa2VYWmxjbk5sWENJc0lGd2ljM1JoZEhOY0lpd2dYQ0p0WVhKbmFXNXpYQ0lwS1Z4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5pbnN0YWxsLnBhY2thZ2VzKGMoXCJ0aWR5dmVyc2VcIiwgXCJzdGF0c1wiLCBcIm1hcmdpbnNcIikpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhjKFwidGlkeXZlcnNlXCIsIFwic3RhdHNcIiwgXCJtYXJnaW5zXCIpKVxuYGBgIn0= -->
+<pre class="r"><code>install.packages(c(&quot;tidyverse&quot;, &quot;stats&quot;, &quot;margins&quot;))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Verify with manual FE using lm()</p>
+<p>Load required packages</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabVZmWm1seWJWOXRZVzUxWVd3Z1BDMGdiRzBvYVc1MlpYTjBJSDRnZG1Gc2RXVWdLeUJqWVhCcGRHRnNJQ3NnWVhNdVptRmpkRzl5S0dacGNtMHBMQ0JrWVhSaElEMGdSM0oxYm1abGJHUXBYRzV6ZFcxdFlYSjVLR1psWDJacGNtMWZiV0Z1ZFdGc0tTQWdJeUJEYjJWbVptbGphV1Z1ZEhNZ1ptOXlJSFpoYkhWbElHRnVaQ0JqWVhCcGRHRnNJSE5vYjNWc1pDQnRZWFJqYUNCbVpWOW1hWEp0WEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5mZV9maXJtX21hbnVhbCA8LSBsbShpbnZlc3QgfiB2YWx1ZSArIGNhcGl0YWwgKyBhcy5mYWN0b3IoZmlybSksIGRhdGEgPSBHcnVuZmVsZClcbnN1bW1hcnkoZmVfZmlybV9tYW51YWwpICAjIENvZWZmaWNpZW50cyBmb3IgdmFsdWUgYW5kIGNhcGl0YWwgc2hvdWxkIG1hdGNoIGZlX2Zpcm1cbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmVfZmlybV9tYW51YWwgPC0gbG0oaW52ZXN0IH4gdmFsdWUgKyBjYXBpdGFsICsgYXMuZmFjdG9yKGZpcm0pLCBkYXRhID0gR3J1bmZlbGQpXG5zdW1tYXJ5KGZlX2Zpcm1fbWFudWFsKSAgIyBDb2VmZmljaWVudHMgZm9yIHZhbHVlIGFuZCBjYXBpdGFsIHNob3VsZCBtYXRjaCBmZV9maXJtXG5gYGAifQ== -->
-<pre class="r"><code>fe_firm_manual &lt;- lm(invest ~ value + capital + as.factor(firm), data = Grunfeld)
-summary(fe_firm_manual)  # Coefficients for value and capital should match fe_firm</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViR2xpY21GeWVTaDBhV1I1ZG1WeWMyVXBJQ0FqSUVadmNpQmtZWFJoSUcxaGJtbHdkV3hoZEdsdmJpQmhibVFnY0d4dmRIUnBibWRjYm14cFluSmhjbmtvYzNSaGRITXBJQ0FnSUNBZ0l5QkdiM0lnWjJ4dEtDa2dMU0JzYjJkcGRDQmhibVFnY0hKdlltbDBJRzF2WkdWc2MxeHVZR0JnSW4wPSAtLT5cblxuYGBgclxubGlicmFyeSh0aWR5dmVyc2UpICAjIEZvciBkYXRhIG1hbmlwdWxhdGlvbiBhbmQgcGxvdHRpbmdcbmxpYnJhcnkoc3RhdHMpICAgICAgIyBGb3IgZ2xtKCkgLSBsb2dpdCBhbmQgcHJvYml0IG1vZGVsc1xuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpICAjIEZvciBkYXRhIG1hbmlwdWxhdGlvbiBhbmQgcGxvdHRpbmdcbmxpYnJhcnkoc3RhdHMpICAgICAgIyBGb3IgZ2xtKCkgLSBsb2dpdCBhbmQgcHJvYml0IG1vZGVsc1xuYGBgIn0= -->
+<pre class="r"><code>library(tidyverse)  # For data manipulation and plotting
+library(stats)      # For glm() - logit and probit models</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<ol start="3" style="list-style-type: decimal">
-<li>Two-way FE - Individual (firm) and time (year) effects</li>
-</ol>
-<p>Used for controlling both unit-specific and time-specific
-variables/effects, like countries AND years. It adds dummy variables for
-both units. Useful when there are time-specific shocks (e.g., economic
-recessions, policy changes) affecting all units, in addition to
-unit-specific effects.</p>
+<p>Prepare the mtcars dataset</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabVZmZEhkdmQyRjVjeUE4TFNCd2JHMG9hVzUyWlhOMElINGdkbUZzZFdVZ0t5QmpZWEJwZEdGc0xDQmtZWFJoSUQwZ1IzSjFibVpsYkdRc0lGeHVJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdhVzVrWlhnZ1BTQmpLRndpWm1seWJWd2lMQ0JjSW5sbFlYSmNJaWtzSUcxdlpHVnNJRDBnWENKM2FYUm9hVzVjSWl3Z1pXWm1aV04wSUQwZ1hDSjBkMjkzWVhselhDSXBYRzV6ZFcxdFlYSjVLR1psWDNSM2IzZGhlWE1wWEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5mZV90d293YXlzIDwtIHBsbShpbnZlc3QgfiB2YWx1ZSArIGNhcGl0YWwsIGRhdGEgPSBHcnVuZmVsZCwgXG4gICAgICAgICAgICAgICAgICBpbmRleCA9IGMoXCJmaXJtXCIsIFwieWVhclwiKSwgbW9kZWwgPSBcIndpdGhpblwiLCBlZmZlY3QgPSBcInR3b3dheXNcIilcbnN1bW1hcnkoZmVfdHdvd2F5cylcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmVfdHdvd2F5cyA8LSBwbG0oaW52ZXN0IH4gdmFsdWUgKyBjYXBpdGFsLCBkYXRhID0gR3J1bmZlbGQsIFxuICAgICAgICAgICAgICAgICAgaW5kZXggPSBjKFwiZmlybVwiLCBcInllYXJcIiksIG1vZGVsID0gXCJ3aXRoaW5cIiwgZWZmZWN0ID0gXCJ0d293YXlzXCIpXG5zdW1tYXJ5KGZlX3R3b3dheXMpXG5gYGAifQ== -->
-<pre class="r"><code>fe_twoways &lt;- plm(invest ~ value + capital, data = Grunfeld, 
-                  index = c(&quot;firm&quot;, &quot;year&quot;), model = &quot;within&quot;, effect = &quot;twoways&quot;)
-summary(fe_twoways)</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVaR0YwWVNodGRHTmhjbk1wWEc1dGRHTmhjbk1nUEMwZ2JYUmpZWEp6SUNVK0pTQmNiaUFnYlhWMFlYUmxLR0Z0WDJKcGJtRnllU0E5SUdGekxtWmhZM1J2Y2loaGJTa3BJQ0FqSUVKcGJtRnllU0J2ZFhSamIyMWxPaUF3SUQwZ1lYVjBieXdnTVNBOUlHMWhiblZoYkZ4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5kYXRhKG10Y2Fycylcbm10Y2FycyA8LSBtdGNhcnMgJT4lIFxuICBtdXRhdGUoYW1fYmluYXJ5ID0gYXMuZmFjdG9yKGFtKSkgICMgQmluYXJ5IG91dGNvbWU6IDAgPSBhdXRvLCAxID0gbWFudWFsXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YShtdGNhcnMpXG5tdGNhcnMgPC0gbXRjYXJzICU+JSBcbiAgbXV0YXRlKGFtX2JpbmFyeSA9IGFzLmZhY3RvcihhbSkpICAjIEJpbmFyeSBvdXRjb21lOiAwID0gYXV0bywgMSA9IG1hbnVhbFxuYGBgIn0= -->
+<pre class="r"><code>data(mtcars)
+mtcars &lt;- mtcars %&gt;% 
+  mutate(am_binary = as.factor(am))  # Binary outcome: 0 = auto, 1 = manual</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<ol start="4" style="list-style-type: decimal">
-<li>Random Effects (RE)</li>
-</ol>
-<p>It is more efficient than fixed effects and allows for time-invariant
-variables.</p>
-<p>You don’t have to use BUT bonus points if you do.</p>
-<p>Random Effects assumes that unobserved heterogeneity across units is
-uncorrelated with the explanatory variables and treats it as a random
-component. It uses a generalized least squares (GLS) approach to
-estimate coefficients, incorporating a random intercept for each unit.
-It balances between-unit and within-unit variation.</p>
+<div id="logit-model-logistic-regression" class="section level2">
+<h2>1. Logit Model (Logistic Regression)</h2>
+<p>What Are Logit and Probit Models?</p>
+<p>Logit (Logistic Regression): Models the log-odds of an event (e.g.,
+am = 1) using a logistic function. The probability curves into an
+S-shape, staying between 0 and 1.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVjbVZmYlc5a1pXd2dQQzBnY0d4dEtHbHVkbVZ6ZENCK0lIWmhiSFZsSUNzZ1kyRndhWFJoYkN3Z1pHRjBZU0E5SUVkeWRXNW1aV3hrTENCY2JpQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNCcGJtUmxlQ0E5SUdNb1hDSm1hWEp0WENJc0lGd2llV1ZoY2x3aUtTd2diVzlrWld3Z1BTQmNJbkpoYm1SdmJWd2lLVnh1YzNWdGJXRnllU2h5WlY5dGIyUmxiQ2xjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbnJlX21vZGVsIDwtIHBsbShpbnZlc3QgfiB2YWx1ZSArIGNhcGl0YWwsIGRhdGEgPSBHcnVuZmVsZCwgXG4gICAgICAgICAgICAgICAgaW5kZXggPSBjKFwiZmlybVwiLCBcInllYXJcIiksIG1vZGVsID0gXCJyYW5kb21cIilcbnN1bW1hcnkocmVfbW9kZWwpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVfbW9kZWwgPC0gcGxtKGludmVzdCB+IHZhbHVlICsgY2FwaXRhbCwgZGF0YSA9IEdydW5mZWxkLCBcbiAgICAgICAgICAgICAgICBpbmRleCA9IGMoXCJmaXJtXCIsIFwieWVhclwiKSwgbW9kZWwgPSBcInJhbmRvbVwiKVxuc3VtbWFyeShyZV9tb2RlbClcbmBgYCJ9 -->
-<pre class="r"><code>re_model &lt;- plm(invest ~ value + capital, data = Grunfeld, 
-                index = c(&quot;firm&quot;, &quot;year&quot;), model = &quot;random&quot;)
-summary(re_model)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<ol start="5" style="list-style-type: decimal">
-<li>Hausman Test: Compare FE vs RE (null: RE is consistent and
-efficient)</li>
-</ol>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVjR2gwWlhOMEtHWmxYMlpwY20wc0lISmxYMjF2WkdWc0tWeHVZR0JnSW4wPSAtLT5cblxuYGBgclxucGh0ZXN0KGZlX2Zpcm0sIHJlX21vZGVsKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGh0ZXN0KGZlX2Zpcm0sIHJlX21vZGVsKVxuYGBgIn0= -->
-<pre class="r"><code>phtest(fe_firm, re_model)</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViRzluYVhSZmJXOWtaV3dnUEMwZ1oyeHRLR0Z0WDJKcGJtRnllU0IrSUdod0lDc2dkM1FzSUZ4dUlDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lHUmhkR0VnUFNCdGRHTmhjbk1zSUZ4dUlDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lHWmhiV2xzZVNBOUlHSnBibTl0YVdGc0tHeHBibXNnUFNCY0lteHZaMmwwWENJcEtWeHVjM1Z0YldGeWVTaHNiMmRwZEY5dGIyUmxiQ2xjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbmxvZ2l0X21vZGVsIDwtIGdsbShhbV9iaW5hcnkgfiBocCArIHd0LCBcbiAgICAgICAgICAgICAgICAgICBkYXRhID0gbXRjYXJzLCBcbiAgICAgICAgICAgICAgICAgICBmYW1pbHkgPSBiaW5vbWlhbChsaW5rID0gXCJsb2dpdFwiKSlcbnN1bW1hcnkobG9naXRfbW9kZWwpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubG9naXRfbW9kZWwgPC0gZ2xtKGFtX2JpbmFyeSB+IGhwICsgd3QsIFxuICAgICAgICAgICAgICAgICAgIGRhdGEgPSBtdGNhcnMsIFxuICAgICAgICAgICAgICAgICAgIGZhbWlseSA9IGJpbm9taWFsKGxpbmsgPSBcImxvZ2l0XCIpKVxuc3VtbWFyeShsb2dpdF9tb2RlbClcbmBgYCJ9 -->
+<pre class="r"><code>logit_model &lt;- glm(am_binary ~ hp + wt, 
+                   data = mtcars, 
+                   family = binomial(link = &quot;logit&quot;))
+summary(logit_model)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
-<div id="part-3-how-to-interpret-each-component" class="section level2">
-<h2>Part 3: How to Interpret Each Component</h2>
-<div id="residuals" class="section level3">
-<h3>Residuals</h3>
-<ol style="list-style-type: decimal">
-<li>Pooled OLS: Min -290.33, Median 11.06, Max 377.94</li>
-</ol>
-<p>Wide range suggests some firms/years are poorly predicted—ignores
-firm-specific effects.</p>
-<p>FE: Min -184.01, Median 0.272, Max 250.75</p>
-<p>Narrower range—firm effects reduce prediction errors for results.</p>
-<p>Two-way FE: Min -184.01, Median 0.272, Max 250.75</p>
-<p>Essentially the same ranges, so no real change here.</p>
-<p>RE: Not explicitly shown in RE output, but typically between Pooled
-OLS and FE.</p>
-<p>Takeaway: Smaller residual spread in FE/Two-way FE indicates better
-handling of heterogeneity.</p>
-</div>
-<div id="coefficients" class="section level3">
-<h3>Coefficients</h3>
-<p>Pooled OLS: value = 0.085, capital = 0.320</p>
-<p>Average effect across all firms and years.</p>
-<p>FE: value = 0.110, capital = 0.250</p>
-<p>Within-firm effect—how changes in value/capital affect invest for the
-same firm.</p>
-<p>Two-way FE: value = 0.115, capital = 0.230</p>
-<p>Within-firm effect, net of year-specific shocks.</p>
-<p>RE: value = 0.095, capital = 0.290</p>
-<p>Weighted average of between- and within-firm effects.</p>
-<p>Takeaway: FE coefficients are larger for value, smaller for
-capital—firm-specific effects adjust the relationships.</p>
-</div>
-<div id="significance-values-p-values" class="section level3">
-<h3>Significance Values (P-Values)</h3>
-<p>Across Models: All p-values for value and capital are tiny (e.g.,
-&lt; 0.001 with ***), indicating strong evidence these variables affect
-invest.</p>
-<p>Intercept: Significant in Pooled OLS (p = 0.015), not in RE (p =
-0.068)—FE omits it (focuses on within variation).</p>
-<p>Takeaway: Consistent significance suggests robust relationships, but
-model choice affects intercept relevance.</p>
-</div>
-<div id="residual-standard-error-rse" class="section level3">
-<h3>Residual Standard Error (RSE)</h3>
-<p>The lower the RSE the more variation is captured (hence the better).
-Usually FE models possess lower values compared to Pooled OLS and
-RE.</p>
-</div>
-<div id="r-squared-r²" class="section level3">
-<h3>R-Squared (R²)</h3>
-<p>R² measures how much of the variation in your dependent variable
-(e.g., invest in Grunfeld) is explained by your explanatory variables
-(e.g., value and capital).</p>
-<p>It’s a number between 0 and 1:</p>
-<p>0 = the model explains none of the variation (predictions are as good
-as guessing the average).</p>
-<p>1 = the model explains all the variation (perfect predictions).</p>
-<p>So if the Pooled OLS shows a Multiple R-squared value of 0.652, 65.2%
-of the variation for ‘invest’ is explained by value and capital. ###
-Adjusted R-Squared</p>
-<p>Adjusted R² is like R² but penalizes you for adding unnecessary
-variables that don’t improve the model much.</p>
-<p>R² always increases when you add variables (even useless ones).</p>
-<p>Adjusted R² only increases if the new variable meaningfully reduces
-residuals relative to the degrees of freedom lost.</p>
-<p>In FE/Two-way FE, Adjusted R² seems low because of many “hidden”
-dummy variables, but it’s fairer for comparing models with different
-numbers of predictors.</p>
-<p>Helps you pick the “best” model. If Adjusted R² drops a lot (e.g.,
-adding useless controls), the extra complexity isn’t worth it. In your
-code, a Two-way FE’s slight rise is sufficient enough to suggest that
-year effects add value. ### F-Statistic</p>
-<p>F-statistics test whether all your explanatory variables (except the
-intercept) together explain the dependent variable better than a model
-with no predictors (just the mean).</p>
-<p>So the larger the F-statistic is, the better the effects are at
-explaining a measurement (a value of 184.5 means ‘value’ and ‘capital’
-strongly explain ‘invest’ overall)</p>
-</div>
-</div>
-<div id="essentially" class="section level2">
-<h2>Essentially…</h2>
-<p>R²: <strong>“How much of the puzzle is solved?”</strong></p>
-<ul>
-<li>Higher = more explained, but check what variation (total
-vs. within).</li>
-</ul>
-<p>Adjusted R²: <strong>“Is it worth the extra pieces?”</strong></p>
-<ul>
-<li>Stays high if variables pull their weight.</li>
-</ul>
-<p>F-statistic: <strong>“Do these pieces matter at all?”</strong></p>
-<ul>
-<li>Big F = yes, with p-value confirming it’s not random noise.</li>
-</ul>
-<p>Pooled OLS: <strong>“Everything’s lumped together — big picture, but
-blurry details.”</strong></p>
-<ul>
-<li>Higher R² grabs a higher quantity of variation, but misses firm or
-year quirks.</li>
-</ul>
-<p>Fixed Effects (FE): <strong>“Zooming into each firm—sharper focus,
-less noise.”</strong></p>
-<ul>
-<li>Lower R² but truer effects within units, cutting out firm
-differences.</li>
-</ul>
-<p>Two-way Fixed Effects (Two-way FE): <strong>“Double filter—firm and
-year noise gone, crystal clear.”</strong></p>
-<ul>
-<li>Tightest fit, controls everything, best for isolating effects.</li>
-</ul>
-<p>Random Effects (RE): <strong>“Middle ground—mixes the big picture
-with firm quirks.”</strong></p>
-<ul>
-<li>High R² and efficient, but only if firm traits don’t skew the
-variables.</li>
-</ul>
-<p>Coefficients: <strong>“How much each piece moves the puzzle—depends
-on the lens.”</strong></p>
-<ul>
-<li>Size and story shift by model, showing average vs. within
-effects.</li>
-</ul>
+<div id="probit-model" class="section level2">
+<h2>2. Probit Model</h2>
+<p>Probit: Models the same probability but assumes a normal distribution
+(cumulative distribution function, CDF) for the underlying latent
+variable. Also S-shaped, but slightly different curvature.</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVjSEp2WW1sMFgyMXZaR1ZzSUR3dElHZHNiU2hoYlY5aWFXNWhjbmtnZmlCb2NDQXJJSGQwTENCY2JpQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdaR0YwWVNBOUlHMTBZMkZ5Y3l3Z1hHNGdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJR1poYldsc2VTQTlJR0pwYm05dGFXRnNLR3hwYm1zZ1BTQmNJbkJ5YjJKcGRGd2lLU2xjYm5OMWJXMWhjbmtvY0hKdlltbDBYMjF2WkdWc0tWeHVZR0JnSW4wPSAtLT5cblxuYGBgclxucHJvYml0X21vZGVsIDwtIGdsbShhbV9iaW5hcnkgfiBocCArIHd0LCBcbiAgICAgICAgICAgICAgICAgICAgZGF0YSA9IG10Y2FycywgXG4gICAgICAgICAgICAgICAgICAgIGZhbWlseSA9IGJpbm9taWFsKGxpbmsgPSBcInByb2JpdFwiKSlcbnN1bW1hcnkocHJvYml0X21vZGVsKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJvYml0X21vZGVsIDwtIGdsbShhbV9iaW5hcnkgfiBocCArIHd0LCBcbiAgICAgICAgICAgICAgICAgICAgZGF0YSA9IG10Y2FycywgXG4gICAgICAgICAgICAgICAgICAgIGZhbWlseSA9IGJpbm9taWFsKGxpbmsgPSBcInByb2JpdFwiKSlcbnN1bW1hcnkocHJvYml0X21vZGVsKVxuYGBgIn0= -->
+<pre class="r"><code>probit_model &lt;- glm(am_binary ~ hp + wt, 
+                    data = mtcars, 
+                    family = binomial(link = &quot;probit&quot;))
+summary(probit_model)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p><strong>Key Difference:</strong></p>
+<ul>
+<li><p><strong>Logit</strong>: Uses the logistic distribution (fatter
+tails), coefficients relate to log-odds.</p></li>
+<li><p><strong>Probit</strong>: Uses the normal distribution,
+coefficients are in z-score units (harder to interpret
+directly).</p></li>
+</ul>
+</div>
+<div id="predicted-probabilities" class="section level2">
+<h2>3. Predicted Probabilities</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViWFJqWVhKekpHeHZaMmwwWDNCeWIySWdQQzBnY0hKbFpHbGpkQ2hzYjJkcGRGOXRiMlJsYkN3Z2RIbHdaU0E5SUZ3aWNtVnpjRzl1YzJWY0lpa2dJQ01nVUhKdlltRmlhV3hwZEdsbGMxeHViWFJqWVhKekpIQnliMkpwZEY5d2NtOWlJRHd0SUhCeVpXUnBZM1FvY0hKdlltbDBYMjF2WkdWc0xDQjBlWEJsSUQwZ1hDSnlaWE53YjI1elpWd2lLVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbm10Y2FycyRsb2dpdF9wcm9iIDwtIHByZWRpY3QobG9naXRfbW9kZWwsIHR5cGUgPSBcInJlc3BvbnNlXCIpICAjIFByb2JhYmlsaXRpZXNcbm10Y2FycyRwcm9iaXRfcHJvYiA8LSBwcmVkaWN0KHByb2JpdF9tb2RlbCwgdHlwZSA9IFwicmVzcG9uc2VcIilcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXRjYXJzJGxvZ2l0X3Byb2IgPC0gcHJlZGljdChsb2dpdF9tb2RlbCwgdHlwZSA9IFwicmVzcG9uc2VcIikgICMgUHJvYmFiaWxpdGllc1xubXRjYXJzJHByb2JpdF9wcm9iIDwtIHByZWRpY3QocHJvYml0X21vZGVsLCB0eXBlID0gXCJyZXNwb25zZVwiKVxuYGBgIn0= -->
+<pre class="r"><code>mtcars$logit_prob &lt;- predict(logit_model, type = &quot;response&quot;)  # Probabilities
+mtcars$probit_prob &lt;- predict(probit_model, type = &quot;response&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="plot-logit-vs.-probit-predictions" class="section level2">
+<h2>4. Plot Logit vs. Probit Predictions</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVaMmR3Ykc5MEtHMTBZMkZ5Y3l3Z1lXVnpLSGdnUFNCb2NDa3BJQ3RjYmlBZ1oyVnZiVjl3YjJsdWRDaGhaWE1vZVNBOUlHRnRMQ0JqYjJ4dmNpQTlJRndpUVdOMGRXRnNYQ0lwTENCaGJIQm9ZU0E5SURBdU5Ta2dLMXh1SUNCblpXOXRYMnhwYm1Vb1lXVnpLSGtnUFNCc2IyZHBkRjl3Y205aUxDQmpiMnh2Y2lBOUlGd2lURzluYVhSY0lpa3NJSE5wZW1VZ1BTQXhLU0FyWEc0Z0lHZGxiMjFmYkdsdVpTaGhaWE1vZVNBOUlIQnliMkpwZEY5d2NtOWlMQ0JqYjJ4dmNpQTlJRndpVUhKdlltbDBYQ0lwTENCemFYcGxJRDBnTVN3Z2JHbHVaWFI1Y0dVZ1BTQmNJbVJoYzJobFpGd2lLU0FyWEc0Z0lHeGhZbk1vZEdsMGJHVWdQU0JjSWt4dloybDBJSFp6TGlCUWNtOWlhWFE2SUZCeWIySmhZbWxzYVhSNUlHOW1JRTFoYm5WaGJDQlVjbUZ1YzIxcGMzTnBiMjVjSWl4Y2JpQWdJQ0FnSUNCNElEMGdYQ0pJYjNKelpYQnZkMlZ5SUNob2NDbGNJaXdnZVNBOUlGd2lVSEp2WW1GaWFXeHBkSGxjSWlrZ0sxeHVJQ0J6WTJGc1pWOWpiMnh2Y2w5dFlXNTFZV3dvZG1Gc2RXVnpJRDBnWXloY0lrRmpkSFZoYkZ3aUlEMGdYQ0ppYkdGamExd2lMQ0JjSWt4dloybDBYQ0lnUFNCY0ltSnNkV1ZjSWl3Z1hDSlFjbTlpYVhSY0lpQTlJRndpY21Wa1hDSXBLU0FyWEc0Z0lIUm9aVzFsWDIxcGJtbHRZV3dvS1Z4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5nZ3Bsb3QobXRjYXJzLCBhZXMoeCA9IGhwKSkgK1xuICBnZW9tX3BvaW50KGFlcyh5ID0gYW0sIGNvbG9yID0gXCJBY3R1YWxcIiksIGFscGhhID0gMC41KSArXG4gIGdlb21fbGluZShhZXMoeSA9IGxvZ2l0X3Byb2IsIGNvbG9yID0gXCJMb2dpdFwiKSwgc2l6ZSA9IDEpICtcbiAgZ2VvbV9saW5lKGFlcyh5ID0gcHJvYml0X3Byb2IsIGNvbG9yID0gXCJQcm9iaXRcIiksIHNpemUgPSAxLCBsaW5ldHlwZSA9IFwiZGFzaGVkXCIpICtcbiAgbGFicyh0aXRsZSA9IFwiTG9naXQgdnMuIFByb2JpdDogUHJvYmFiaWxpdHkgb2YgTWFudWFsIFRyYW5zbWlzc2lvblwiLFxuICAgICAgIHggPSBcIkhvcnNlcG93ZXIgKGhwKVwiLCB5ID0gXCJQcm9iYWJpbGl0eVwiKSArXG4gIHNjYWxlX2NvbG9yX21hbnVhbCh2YWx1ZXMgPSBjKFwiQWN0dWFsXCIgPSBcImJsYWNrXCIsIFwiTG9naXRcIiA9IFwiYmx1ZVwiLCBcIlByb2JpdFwiID0gXCJyZWRcIikpICtcbiAgdGhlbWVfbWluaW1hbCgpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KG10Y2FycywgYWVzKHggPSBocCkpICtcbiAgZ2VvbV9wb2ludChhZXMoeSA9IGFtLCBjb2xvciA9IFwiQWN0dWFsXCIpLCBhbHBoYSA9IDAuNSkgK1xuICBnZW9tX2xpbmUoYWVzKHkgPSBsb2dpdF9wcm9iLCBjb2xvciA9IFwiTG9naXRcIiksIHNpemUgPSAxKSArXG4gIGdlb21fbGluZShhZXMoeSA9IHByb2JpdF9wcm9iLCBjb2xvciA9IFwiUHJvYml0XCIpLCBzaXplID0gMSwgbGluZXR5cGUgPSBcImRhc2hlZFwiKSArXG4gIGxhYnModGl0bGUgPSBcIkxvZ2l0IHZzLiBQcm9iaXQ6IFByb2JhYmlsaXR5IG9mIE1hbnVhbCBUcmFuc21pc3Npb25cIixcbiAgICAgICB4ID0gXCJIb3JzZXBvd2VyIChocClcIiwgeSA9IFwiUHJvYmFiaWxpdHlcIikgK1xuICBzY2FsZV9jb2xvcl9tYW51YWwodmFsdWVzID0gYyhcIkFjdHVhbFwiID0gXCJibGFja1wiLCBcIkxvZ2l0XCIgPSBcImJsdWVcIiwgXCJQcm9iaXRcIiA9IFwicmVkXCIpKSArXG4gIHRoZW1lX21pbmltYWwoKVxuYGBgIn0= -->
+<pre class="r"><code>ggplot(mtcars, aes(x = hp)) +
+  geom_point(aes(y = am, color = &quot;Actual&quot;), alpha = 0.5) +
+  geom_line(aes(y = logit_prob, color = &quot;Logit&quot;), size = 1) +
+  geom_line(aes(y = probit_prob, color = &quot;Probit&quot;), size = 1, linetype = &quot;dashed&quot;) +
+  labs(title = &quot;Logit vs. Probit: Probability of Manual Transmission&quot;,
+       x = &quot;Horsepower (hp)&quot;, y = &quot;Probability&quot;) +
+  scale_color_manual(values = c(&quot;Actual&quot; = &quot;black&quot;, &quot;Logit&quot; = &quot;blue&quot;, &quot;Probit&quot; = &quot;red&quot;)) +
+  theme_minimal()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="marginal-effects-for-logit---approximate-change-in-probability" class="section level2">
+<h2>5. Marginal Effects (for Logit) - approximate change in
+probability</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViR2xpY21GeWVTaHRZWEpuYVc1ektTQWdJeUJHYjNJZ2JXRnlaMmx1WVd3Z1pXWm1aV04wYzF4dWJHOW5hWFJmYldGeVoybHVjeUE4TFNCdFlYSm5hVzV6S0d4dloybDBYMjF2WkdWc0tWeHVjM1Z0YldGeWVTaHNiMmRwZEY5dFlYSm5hVzV6S1Z4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5saWJyYXJ5KG1hcmdpbnMpICAjIEZvciBtYXJnaW5hbCBlZmZlY3RzXG5sb2dpdF9tYXJnaW5zIDwtIG1hcmdpbnMobG9naXRfbW9kZWwpXG5zdW1tYXJ5KGxvZ2l0X21hcmdpbnMpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShtYXJnaW5zKSAgIyBGb3IgbWFyZ2luYWwgZWZmZWN0c1xubG9naXRfbWFyZ2lucyA8LSBtYXJnaW5zKGxvZ2l0X21vZGVsKVxuc3VtbWFyeShsb2dpdF9tYXJnaW5zKVxuYGBgIn0= -->
+<pre class="r"><code>library(margins)  # For marginal effects
+logit_margins &lt;- margins(logit_model)
+summary(logit_margins)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMgUGFydCAxOiBTZXR0aW5nIHVwIERhdGEKClNldCBhIHJhbmRvbSBzZWVkIGZvciByZXByb2R1Y2liaWxpdHkuCgpgYGB7cn0Kc2V0LnNlZWQoMTIzKQoKaW5zdGFsbC5wYWNrYWdlcyhjKCJBRVIiLCAicGxtIiwgInRpZHl2ZXJzZSIpKQpgYGAKCkluc3RhbGwgcmVxdWlyZWQgcGFja2FnZXMgZm9yIFBhbmVsIERhdGEgQW5hbHlzaXMuCgpgYGB7cn0KaW5zdGFsbC5wYWNrYWdlcyhjKCJBRVIiLCAicGxtIiwgInRpZHl2ZXJzZSIpKQpgYGAKCkxvYWQgdGhlIHJlcXVpcmVkIHBhY2thZ2VzIHlvdSd2ZSBwcmV2aW91c2x5IGluc3RhbGxlZC4KCmBgYHtyfQpsaWJyYXJ5KCJBRVIiKSAgICAgICAgIyBGb3IgR3J1bmZlbGQgZGF0YXNldCBhbmQgZWNvbm9tZXRyaWMgdG9vbHMKbGlicmFyeSgicGxtIikgICAgICAgICMgRm9yIHBhbmVsIGRhdGEgcmVncmVzc2lvbgpsaWJyYXJ5KCJ0aWR5dmVyc2UiKSAgIyBGb3IgZGF0YSBtYW5pcHVsYXRpb24KYGBgCgojIyBQYXJ0IDI6IEdydW5mZWxkIEludmVzdG1lbnQgRGF0YSAtIFBhbmVsIERhdGEgQmFzaWNzCgpMb2FkIGFuZCBpbnNwZWN0IHRoZSBHcnVuZmVsZCBkYXRhc2V0IChiYWxhbmNlZCBwYW5lbDogZmlybXMgb3ZlciB5ZWFycykKCmBgYHtyfQpkYXRhKCJHcnVuZmVsZCIsIHBhY2thZ2UgPSAiQUVSIikKaGVhZChHcnVuZmVsZCkgICMgQ2hlY2sgc3RydWN0dXJlOiBmaXJtLCB5ZWFyLCBpbnZlc3QsIHZhbHVlLCBjYXBpdGFsCmBgYAoKMS4gIFBvb2xlZCBPTFMgKHRyZWF0aW5nIGRhdGEgYXMgY3Jvc3Mtc2VjdGlvbmFsKQoKVXNlIFBvb2xlZCBPTFMgbWFpbmx5IGZvciBzaW1wbGUgY3Jvc3Mtc2VjdGlvbmFsIGRhdGFzZXRzLCB3aGljaCBpcyB3aGVuIHlvdSBkb24ndCB3YW50IHRvIHRha2UgdGltZS1zcGVjaWZpYyBvciB1bml0LXNwZWNpZmljIGVmZmVjdHMgaW50byBjb25zaWRlcmF0aW9uLCBvciB5b3UganVzdCB3YW50IGEgYmFzZWxpbmUgZm9yIGNvbXBhcmlzb24uCgpgYGB7cn0KCnBvb2xlZF9vbHMgPC0gbG0oaW52ZXN0IH4gdmFsdWUgKyBjYXBpdGFsLCBkYXRhID0gR3J1bmZlbGQpCnN1bW1hcnkocG9vbGVkX29scykKYGBgCgoyLiAgRml4ZWQgRWZmZWN0cyAoRkUpIC0gSW5kaXZpZHVhbCAoZmlybSkgZWZmZWN0cwoKSXQgYWRkcyBhIGR1bW15IHZhcmlhYmxlIGZvciBlYWNoIHVuaXQgKGUuZy4sIGZpcm0vY291bnRyeSkgdG8gbWVhc3VyZSB1bm9ic2VydmVkIGhldGVyb2dlbmVpdHkuIFVzZSBmb3IgZGF0YXNldHMgdGhhdCBoYXZlIGRpZmZlcmluZyB1bml0cyB0aGF0IGRvbid0IGNoYW5nZSBvdmVyIHRpbWUgKGUuZy4sIGEgY291bnRyeSdzIGN1bHR1cmUpCgpgYGB7cn0KCmZlX2Zpcm0gPC0gcGxtKGludmVzdCB+IHZhbHVlICsgY2FwaXRhbCwgZGF0YSA9IEdydW5mZWxkLCAKICAgICAgICAgICAgICAgaW5kZXggPSBjKCJmaXJtIiwgInllYXIiKSwgbW9kZWwgPSAid2l0aGluIikKc3VtbWFyeShmZV9maXJtKQpgYGAKClZlcmlmeSB3aXRoIG1hbnVhbCBGRSB1c2luZyBsbSgpCgpgYGB7cn0KZmVfZmlybV9tYW51YWwgPC0gbG0oaW52ZXN0IH4gdmFsdWUgKyBjYXBpdGFsICsgYXMuZmFjdG9yKGZpcm0pLCBkYXRhID0gR3J1bmZlbGQpCnN1bW1hcnkoZmVfZmlybV9tYW51YWwpICAjIENvZWZmaWNpZW50cyBmb3IgdmFsdWUgYW5kIGNhcGl0YWwgc2hvdWxkIG1hdGNoIGZlX2Zpcm0KYGBgCgozLiAgVHdvLXdheSBGRSAtIEluZGl2aWR1YWwgKGZpcm0pIGFuZCB0aW1lICh5ZWFyKSBlZmZlY3RzCgpVc2VkIGZvciBjb250cm9sbGluZyBib3RoIHVuaXQtc3BlY2lmaWMgYW5kIHRpbWUtc3BlY2lmaWMgdmFyaWFibGVzL2VmZmVjdHMsIGxpa2UgY291bnRyaWVzIEFORCB5ZWFycy4gSXQgYWRkcyBkdW1teSB2YXJpYWJsZXMgZm9yIGJvdGggdW5pdHMuIFVzZWZ1bCB3aGVuIHRoZXJlIGFyZSB0aW1lLXNwZWNpZmljIHNob2NrcyAoZS5nLiwgZWNvbm9taWMgcmVjZXNzaW9ucywgcG9saWN5IGNoYW5nZXMpIGFmZmVjdGluZyBhbGwgdW5pdHMsIGluIGFkZGl0aW9uIHRvIHVuaXQtc3BlY2lmaWMgZWZmZWN0cy4KCmBgYHtyfQpmZV90d293YXlzIDwtIHBsbShpbnZlc3QgfiB2YWx1ZSArIGNhcGl0YWwsIGRhdGEgPSBHcnVuZmVsZCwgCiAgICAgICAgICAgICAgICAgIGluZGV4ID0gYygiZmlybSIsICJ5ZWFyIiksIG1vZGVsID0gIndpdGhpbiIsIGVmZmVjdCA9ICJ0d293YXlzIikKc3VtbWFyeShmZV90d293YXlzKQpgYGAKCjQuICBSYW5kb20gRWZmZWN0cyAoUkUpCgpJdCBpcyBtb3JlIGVmZmljaWVudCB0aGFuIGZpeGVkIGVmZmVjdHMgYW5kIGFsbG93cyBmb3IgdGltZS1pbnZhcmlhbnQgdmFyaWFibGVzLgoKWW91IGRvbid0IGhhdmUgdG8gdXNlIEJVVCBib251cyBwb2ludHMgaWYgeW91IGRvLgoKUmFuZG9tIEVmZmVjdHMgYXNzdW1lcyB0aGF0IHVub2JzZXJ2ZWQgaGV0ZXJvZ2VuZWl0eSBhY3Jvc3MgdW5pdHMgaXMgdW5jb3JyZWxhdGVkIHdpdGggdGhlIGV4cGxhbmF0b3J5IHZhcmlhYmxlcyBhbmQgdHJlYXRzIGl0IGFzIGEgcmFuZG9tIGNvbXBvbmVudC4gSXQgdXNlcyBhIGdlbmVyYWxpemVkIGxlYXN0IHNxdWFyZXMgKEdMUykgYXBwcm9hY2ggdG8gZXN0aW1hdGUgY29lZmZpY2llbnRzLCBpbmNvcnBvcmF0aW5nIGEgcmFuZG9tIGludGVyY2VwdCBmb3IgZWFjaCB1bml0LiBJdCBiYWxhbmNlcyBiZXR3ZWVuLXVuaXQgYW5kIHdpdGhpbi11bml0IHZhcmlhdGlvbi4KCmBgYHtyfQpyZV9tb2RlbCA8LSBwbG0oaW52ZXN0IH4gdmFsdWUgKyBjYXBpdGFsLCBkYXRhID0gR3J1bmZlbGQsIAogICAgICAgICAgICAgICAgaW5kZXggPSBjKCJmaXJtIiwgInllYXIiKSwgbW9kZWwgPSAicmFuZG9tIikKc3VtbWFyeShyZV9tb2RlbCkKYGBgCgo1LiAgSGF1c21hbiBUZXN0OiBDb21wYXJlIEZFIHZzIFJFIChudWxsOiBSRSBpcyBjb25zaXN0ZW50IGFuZCBlZmZpY2llbnQpCgpgYGB7cn0KcGh0ZXN0KGZlX2Zpcm0sIHJlX21vZGVsKQpgYGAKCiMjIFBhcnQgMzogSG93IHRvIEludGVycHJldCBFYWNoIENvbXBvbmVudAoKIyMjIFJlc2lkdWFscwoKMS4gIFBvb2xlZCBPTFM6IE1pbiAtMjkwLjMzLCBNZWRpYW4gMTEuMDYsIE1heCAzNzcuOTQKCldpZGUgcmFuZ2Ugc3VnZ2VzdHMgc29tZSBmaXJtcy95ZWFycyBhcmUgcG9vcmx5IHByZWRpY3RlZC0tLWlnbm9yZXMgZmlybS1zcGVjaWZpYyBlZmZlY3RzLgoKRkU6IE1pbiAtMTg0LjAxLCBNZWRpYW4gMC4yNzIsIE1heCAyNTAuNzUKCk5hcnJvd2VyIHJhbmdlLS0tZmlybSBlZmZlY3RzIHJlZHVjZSBwcmVkaWN0aW9uIGVycm9ycyBmb3IgcmVzdWx0cy4KClR3by13YXkgRkU6IE1pbiAtMTg0LjAxLCBNZWRpYW4gMC4yNzIsIE1heCAyNTAuNzUKCkVzc2VudGlhbGx5IHRoZSBzYW1lIHJhbmdlcywgc28gbm8gcmVhbCBjaGFuZ2UgaGVyZS4KClJFOiBOb3QgZXhwbGljaXRseSBzaG93biBpbiBSRSBvdXRwdXQsIGJ1dCB0eXBpY2FsbHkgYmV0d2VlbiBQb29sZWQgT0xTIGFuZCBGRS4KClRha2Vhd2F5OiBTbWFsbGVyIHJlc2lkdWFsIHNwcmVhZCBpbiBGRS9Ud28td2F5IEZFIGluZGljYXRlcyBiZXR0ZXIgaGFuZGxpbmcgb2YgaGV0ZXJvZ2VuZWl0eS4KCiMjIyBDb2VmZmljaWVudHMKClBvb2xlZCBPTFM6IHZhbHVlID0gMC4wODUsIGNhcGl0YWwgPSAwLjMyMAoKQXZlcmFnZSBlZmZlY3QgYWNyb3NzIGFsbCBmaXJtcyBhbmQgeWVhcnMuCgpGRTogdmFsdWUgPSAwLjExMCwgY2FwaXRhbCA9IDAuMjUwCgpXaXRoaW4tZmlybSBlZmZlY3QtLS1ob3cgY2hhbmdlcyBpbiB2YWx1ZS9jYXBpdGFsIGFmZmVjdCBpbnZlc3QgZm9yIHRoZSBzYW1lIGZpcm0uCgpUd28td2F5IEZFOiB2YWx1ZSA9IDAuMTE1LCBjYXBpdGFsID0gMC4yMzAKCldpdGhpbi1maXJtIGVmZmVjdCwgbmV0IG9mIHllYXItc3BlY2lmaWMgc2hvY2tzLgoKUkU6IHZhbHVlID0gMC4wOTUsIGNhcGl0YWwgPSAwLjI5MAoKV2VpZ2h0ZWQgYXZlcmFnZSBvZiBiZXR3ZWVuLSBhbmQgd2l0aGluLWZpcm0gZWZmZWN0cy4KClRha2Vhd2F5OiBGRSBjb2VmZmljaWVudHMgYXJlIGxhcmdlciBmb3IgdmFsdWUsIHNtYWxsZXIgZm9yIGNhcGl0YWwtLS1maXJtLXNwZWNpZmljIGVmZmVjdHMgYWRqdXN0IHRoZSByZWxhdGlvbnNoaXBzLgoKIyMjIFNpZ25pZmljYW5jZSBWYWx1ZXMgKFAtVmFsdWVzKQoKQWNyb3NzIE1vZGVsczogQWxsIHAtdmFsdWVzIGZvciB2YWx1ZSBhbmQgY2FwaXRhbCBhcmUgdGlueSAoZS5nLiwgXDwgMC4wMDEgd2l0aCBcKlwqXCopLCBpbmRpY2F0aW5nIHN0cm9uZyBldmlkZW5jZSB0aGVzZSB2YXJpYWJsZXMgYWZmZWN0IGludmVzdC4KCkludGVyY2VwdDogU2lnbmlmaWNhbnQgaW4gUG9vbGVkIE9MUyAocCA9IDAuMDE1KSwgbm90IGluIFJFIChwID0gMC4wNjgp4oCURkUgb21pdHMgaXQgKGZvY3VzZXMgb24gd2l0aGluIHZhcmlhdGlvbikuCgpUYWtlYXdheTogQ29uc2lzdGVudCBzaWduaWZpY2FuY2Ugc3VnZ2VzdHMgcm9idXN0IHJlbGF0aW9uc2hpcHMsIGJ1dCBtb2RlbCBjaG9pY2UgYWZmZWN0cyBpbnRlcmNlcHQgcmVsZXZhbmNlLgoKIyMjIFJlc2lkdWFsIFN0YW5kYXJkIEVycm9yIChSU0UpCgpUaGUgbG93ZXIgdGhlIFJTRSB0aGUgbW9yZSB2YXJpYXRpb24gaXMgY2FwdHVyZWQgKGhlbmNlIHRoZSBiZXR0ZXIpLiBVc3VhbGx5IEZFIG1vZGVscyBwb3NzZXNzIGxvd2VyIHZhbHVlcyBjb21wYXJlZCB0byBQb29sZWQgT0xTIGFuZCBSRS4KCiMjIyBSLVNxdWFyZWQgKFLCsikKClLCsiBtZWFzdXJlcyBob3cgbXVjaCBvZiB0aGUgdmFyaWF0aW9uIGluIHlvdXIgZGVwZW5kZW50IHZhcmlhYmxlIChlLmcuLCBpbnZlc3QgaW4gR3J1bmZlbGQpIGlzIGV4cGxhaW5lZCBieSB5b3VyIGV4cGxhbmF0b3J5IHZhcmlhYmxlcyAoZS5nLiwgdmFsdWUgYW5kIGNhcGl0YWwpLgoKSXTigJlzIGEgbnVtYmVyIGJldHdlZW4gMCBhbmQgMToKCjAgPSB0aGUgbW9kZWwgZXhwbGFpbnMgbm9uZSBvZiB0aGUgdmFyaWF0aW9uIChwcmVkaWN0aW9ucyBhcmUgYXMgZ29vZCBhcyBndWVzc2luZyB0aGUgYXZlcmFnZSkuCgoxID0gdGhlIG1vZGVsIGV4cGxhaW5zIGFsbCB0aGUgdmFyaWF0aW9uIChwZXJmZWN0IHByZWRpY3Rpb25zKS4KClNvIGlmIHRoZSBQb29sZWQgT0xTIHNob3dzIGEgTXVsdGlwbGUgUi1zcXVhcmVkIHZhbHVlIG9mIDAuNjUyLCA2NS4yJSBvZiB0aGUgdmFyaWF0aW9uIGZvciAnaW52ZXN0JyBpcyBleHBsYWluZWQgYnkgdmFsdWUgYW5kIGNhcGl0YWwuIFwjIyMgQWRqdXN0ZWQgUi1TcXVhcmVkCgpBZGp1c3RlZCBSwrIgaXMgbGlrZSBSwrIgYnV0IHBlbmFsaXplcyB5b3UgZm9yIGFkZGluZyB1bm5lY2Vzc2FyeSB2YXJpYWJsZXMgdGhhdCBkb27igJl0IGltcHJvdmUgdGhlIG1vZGVsIG11Y2guCgpSwrIgYWx3YXlzIGluY3JlYXNlcyB3aGVuIHlvdSBhZGQgdmFyaWFibGVzIChldmVuIHVzZWxlc3Mgb25lcykuCgpBZGp1c3RlZCBSwrIgb25seSBpbmNyZWFzZXMgaWYgdGhlIG5ldyB2YXJpYWJsZSBtZWFuaW5nZnVsbHkgcmVkdWNlcyByZXNpZHVhbHMgcmVsYXRpdmUgdG8gdGhlIGRlZ3JlZXMgb2YgZnJlZWRvbSBsb3N0LgoKSW4gRkUvVHdvLXdheSBGRSwgQWRqdXN0ZWQgUsKyIHNlZW1zIGxvdyBiZWNhdXNlIG9mIG1hbnkg4oCcaGlkZGVu4oCdIGR1bW15IHZhcmlhYmxlcywgYnV0IGl04oCZcyBmYWlyZXIgZm9yIGNvbXBhcmluZyBtb2RlbHMgd2l0aCBkaWZmZXJlbnQgbnVtYmVycyBvZiBwcmVkaWN0b3JzLgoKSGVscHMgeW91IHBpY2sgdGhlIOKAnGJlc3TigJ0gbW9kZWwuIElmIEFkanVzdGVkIFLCsiBkcm9wcyBhIGxvdCAoZS5nLiwgYWRkaW5nIHVzZWxlc3MgY29udHJvbHMpLCB0aGUgZXh0cmEgY29tcGxleGl0eSBpc27igJl0IHdvcnRoIGl0LiBJbiB5b3VyIGNvZGUsIGEgVHdvLXdheSBGReKAmXMgc2xpZ2h0IHJpc2UgaXMgc3VmZmljaWVudCBlbm91Z2ggdG8gc3VnZ2VzdCB0aGF0IHllYXIgZWZmZWN0cyBhZGQgdmFsdWUuIFwjIyMgRi1TdGF0aXN0aWMKCkYtc3RhdGlzdGljcyB0ZXN0IHdoZXRoZXIgYWxsIHlvdXIgZXhwbGFuYXRvcnkgdmFyaWFibGVzIChleGNlcHQgdGhlIGludGVyY2VwdCkgdG9nZXRoZXIgZXhwbGFpbiB0aGUgZGVwZW5kZW50IHZhcmlhYmxlIGJldHRlciB0aGFuIGEgbW9kZWwgd2l0aCBubyBwcmVkaWN0b3JzIChqdXN0IHRoZSBtZWFuKS4KClNvIHRoZSBsYXJnZXIgdGhlIEYtc3RhdGlzdGljIGlzLCB0aGUgYmV0dGVyIHRoZSBlZmZlY3RzIGFyZSBhdCBleHBsYWluaW5nIGEgbWVhc3VyZW1lbnQgKGEgdmFsdWUgb2YgMTg0LjUgbWVhbnMgJ3ZhbHVlJyBhbmQgJ2NhcGl0YWwnIHN0cm9uZ2x5IGV4cGxhaW4gJ2ludmVzdCcgb3ZlcmFsbCkKCiMjIEVzc2VudGlhbGx5Li4uCgpSwrI6ICoq4oCcSG93IG11Y2ggb2YgdGhlIHB1enpsZSBpcyBzb2x2ZWQ/4oCdKioKCi0gICBIaWdoZXIgPSBtb3JlIGV4cGxhaW5lZCwgYnV0IGNoZWNrIHdoYXQgdmFyaWF0aW9uICh0b3RhbCB2cy4gd2l0aGluKS4KCkFkanVzdGVkIFLCsjogKirigJxJcyBpdCB3b3J0aCB0aGUgZXh0cmEgcGllY2VzP+KAnSoqCgotICAgU3RheXMgaGlnaCBpZiB2YXJpYWJsZXMgcHVsbCB0aGVpciB3ZWlnaHQuCgpGLXN0YXRpc3RpYzogKirigJxEbyB0aGVzZSBwaWVjZXMgbWF0dGVyIGF0IGFsbD/igJ0qKgoKLSAgIEJpZyBGID0geWVzLCB3aXRoIHAtdmFsdWUgY29uZmlybWluZyBpdOKAmXMgbm90IHJhbmRvbSBub2lzZS4KClBvb2xlZCBPTFM6ICoq4oCcRXZlcnl0aGluZ+KAmXMgbHVtcGVkIHRvZ2V0aGVyIOKAlCBiaWcgcGljdHVyZSwgYnV0IGJsdXJyeSBkZXRhaWxzLuKAnSoqCgotICAgSGlnaGVyIFLCsiBncmFicyBhIGhpZ2hlciBxdWFudGl0eSBvZiB2YXJpYXRpb24sIGJ1dCBtaXNzZXMgZmlybSBvciB5ZWFyIHF1aXJrcy4KCkZpeGVkIEVmZmVjdHMgKEZFKTogKirigJxab29taW5nIGludG8gZWFjaCBmaXJt4oCUc2hhcnBlciBmb2N1cywgbGVzcyBub2lzZS7igJ0qKgoKLSAgIExvd2VyIFLCsiBidXQgdHJ1ZXIgZWZmZWN0cyB3aXRoaW4gdW5pdHMsIGN1dHRpbmcgb3V0IGZpcm0gZGlmZmVyZW5jZXMuCgpUd28td2F5IEZpeGVkIEVmZmVjdHMgKFR3by13YXkgRkUpOiAqKuKAnERvdWJsZSBmaWx0ZXLigJRmaXJtIGFuZCB5ZWFyIG5vaXNlIGdvbmUsIGNyeXN0YWwgY2xlYXIu4oCdKioKCi0gICBUaWdodGVzdCBmaXQsIGNvbnRyb2xzIGV2ZXJ5dGhpbmcsIGJlc3QgZm9yIGlzb2xhdGluZyBlZmZlY3RzLgoKUmFuZG9tIEVmZmVjdHMgKFJFKTogKirigJxNaWRkbGUgZ3JvdW5k4oCUbWl4ZXMgdGhlIGJpZyBwaWN0dXJlIHdpdGggZmlybSBxdWlya3Mu4oCdKioKCi0gICBIaWdoIFLCsiBhbmQgZWZmaWNpZW50LCBidXQgb25seSBpZiBmaXJtIHRyYWl0cyBkb27igJl0IHNrZXcgdGhlIHZhcmlhYmxlcy4KCkNvZWZmaWNpZW50czogKirigJxIb3cgbXVjaCBlYWNoIHBpZWNlIG1vdmVzIHRoZSBwdXp6bGXigJRkZXBlbmRzIG9uIHRoZSBsZW5zLuKAnSoqCgotICAgU2l6ZSBhbmQgc3Rvcnkgc2hpZnQgYnkgbW9kZWwsIHNob3dpbmcgYXZlcmFnZSB2cy4gd2l0aGluIGVmZmVjdHMuCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKSW5zdGFsbCByZXF1aXJlZCBwYWNrYWdlcwoKYGBge3J9Cmluc3RhbGwucGFja2FnZXMoYygidGlkeXZlcnNlIiwgInN0YXRzIiwgIm1hcmdpbnMiKSkKYGBgCgpMb2FkIHJlcXVpcmVkIHBhY2thZ2VzCgpgYGB7cn0KbGlicmFyeSh0aWR5dmVyc2UpICAjIEZvciBkYXRhIG1hbmlwdWxhdGlvbiBhbmQgcGxvdHRpbmcKbGlicmFyeShzdGF0cykgICAgICAjIEZvciBnbG0oKSAtIGxvZ2l0IGFuZCBwcm9iaXQgbW9kZWxzCmBgYAoKUHJlcGFyZSB0aGUgbXRjYXJzIGRhdGFzZXQKCmBgYHtyfQpkYXRhKG10Y2FycykKbXRjYXJzIDwtIG10Y2FycyAlPiUgCiAgbXV0YXRlKGFtX2JpbmFyeSA9IGFzLmZhY3RvcihhbSkpICAjIEJpbmFyeSBvdXRjb21lOiAwID0gYXV0bywgMSA9IG1hbnVhbApgYGAKCiMjIDEuIExvZ2l0IE1vZGVsIChMb2dpc3RpYyBSZWdyZXNzaW9uKQoKV2hhdCBBcmUgTG9naXQgYW5kIFByb2JpdCBNb2RlbHM/CgpMb2dpdCAoTG9naXN0aWMgUmVncmVzc2lvbik6IE1vZGVscyB0aGUgbG9nLW9kZHMgb2YgYW4gZXZlbnQgKGUuZy4sIGFtID0gMSkgdXNpbmcgYSBsb2dpc3RpYyBmdW5jdGlvbi4gVGhlIHByb2JhYmlsaXR5IGN1cnZlcyBpbnRvIGFuIFMtc2hhcGUsIHN0YXlpbmcgYmV0d2VlbiAwIGFuZCAxLgoKYGBge3J9CmxvZ2l0X21vZGVsIDwtIGdsbShhbV9iaW5hcnkgfiBocCArIHd0LCAKICAgICAgICAgICAgICAgICAgIGRhdGEgPSBtdGNhcnMsIAogICAgICAgICAgICAgICAgICAgZmFtaWx5ID0gYmlub21pYWwobGluayA9ICJsb2dpdCIpKQpzdW1tYXJ5KGxvZ2l0X21vZGVsKQpgYGAKCiMjIDIuIFByb2JpdCBNb2RlbAoKUHJvYml0OiBNb2RlbHMgdGhlIHNhbWUgcHJvYmFiaWxpdHkgYnV0IGFzc3VtZXMgYSBub3JtYWwgZGlzdHJpYnV0aW9uIChjdW11bGF0aXZlIGRpc3RyaWJ1dGlvbiBmdW5jdGlvbiwgQ0RGKSBmb3IgdGhlIHVuZGVybHlpbmcgbGF0ZW50IHZhcmlhYmxlLiBBbHNvIFMtc2hhcGVkLCBidXQgc2xpZ2h0bHkgZGlmZmVyZW50IGN1cnZhdHVyZS4KCmBgYHtyfQpwcm9iaXRfbW9kZWwgPC0gZ2xtKGFtX2JpbmFyeSB+IGhwICsgd3QsIAogICAgICAgICAgICAgICAgICAgIGRhdGEgPSBtdGNhcnMsIAogICAgICAgICAgICAgICAgICAgIGZhbWlseSA9IGJpbm9taWFsKGxpbmsgPSAicHJvYml0IikpCnN1bW1hcnkocHJvYml0X21vZGVsKQpgYGAKCioqS2V5IERpZmZlcmVuY2U6KioKCi0gICAqKkxvZ2l0Kio6IFVzZXMgdGhlIGxvZ2lzdGljIGRpc3RyaWJ1dGlvbiAoZmF0dGVyIHRhaWxzKSwgY29lZmZpY2llbnRzIHJlbGF0ZSB0byBsb2ctb2Rkcy4KCi0gICAqKlByb2JpdCoqOiBVc2VzIHRoZSBub3JtYWwgZGlzdHJpYnV0aW9uLCBjb2VmZmljaWVudHMgYXJlIGluIHotc2NvcmUgdW5pdHMgKGhhcmRlciB0byBpbnRlcnByZXQgZGlyZWN0bHkpLgoKIyMgMy4gUHJlZGljdGVkIFByb2JhYmlsaXRpZXMKCmBgYHtyfQptdGNhcnMkbG9naXRfcHJvYiA8LSBwcmVkaWN0KGxvZ2l0X21vZGVsLCB0eXBlID0gInJlc3BvbnNlIikgICMgUHJvYmFiaWxpdGllcwptdGNhcnMkcHJvYml0X3Byb2IgPC0gcHJlZGljdChwcm9iaXRfbW9kZWwsIHR5cGUgPSAicmVzcG9uc2UiKQpgYGAKCiMjIDQuIFBsb3QgTG9naXQgdnMuIFByb2JpdCBQcmVkaWN0aW9ucwoKYGBge3J9CmdncGxvdChtdGNhcnMsIGFlcyh4ID0gaHApKSArCiAgZ2VvbV9wb2ludChhZXMoeSA9IGFtLCBjb2xvciA9ICJBY3R1YWwiKSwgYWxwaGEgPSAwLjUpICsKICBnZW9tX2xpbmUoYWVzKHkgPSBsb2dpdF9wcm9iLCBjb2xvciA9ICJMb2dpdCIpLCBzaXplID0gMSkgKwogIGdlb21fbGluZShhZXMoeSA9IHByb2JpdF9wcm9iLCBjb2xvciA9ICJQcm9iaXQiKSwgc2l6ZSA9IDEsIGxpbmV0eXBlID0gImRhc2hlZCIpICsKICBsYWJzKHRpdGxlID0gIkxvZ2l0IHZzLiBQcm9iaXQ6IFByb2JhYmlsaXR5IG9mIE1hbnVhbCBUcmFuc21pc3Npb24iLAogICAgICAgeCA9ICJIb3JzZXBvd2VyIChocCkiLCB5ID0gIlByb2JhYmlsaXR5IikgKwogIHNjYWxlX2NvbG9yX21hbnVhbCh2YWx1ZXMgPSBjKCJBY3R1YWwiID0gImJsYWNrIiwgIkxvZ2l0IiA9ICJibHVlIiwgIlByb2JpdCIgPSAicmVkIikpICsKICB0aGVtZV9taW5pbWFsKCkKYGBgCgojIyA1LiBNYXJnaW5hbCBFZmZlY3RzIChmb3IgTG9naXQpIC0gYXBwcm94aW1hdGUgY2hhbmdlIGluIHByb2JhYmlsaXR5CgpgYGB7cn0KbGlicmFyeShtYXJnaW5zKSAgIyBGb3IgbWFyZ2luYWwgZWZmZWN0cwpsb2dpdF9tYXJnaW5zIDwtIG1hcmdpbnMobG9naXRfbW9kZWwpCnN1bW1hcnkobG9naXRfbWFyZ2lucykKYGBgCg==</div>
 
 
 

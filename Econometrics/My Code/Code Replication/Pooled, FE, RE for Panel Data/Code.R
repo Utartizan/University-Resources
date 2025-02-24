@@ -118,7 +118,7 @@ summary(guns_twoways)
 # - Two-way FE controls for both spatial (state) and temporal (year) unobserved effects
 
 # ============================================================================= #
-# Tips for Your Assessment
+# Tips for Assessment
 # ============================================================================= #
 # - Understand the difference between pooled OLS, FE, and RE
 # - Be ready to interpret coefficients and significance
